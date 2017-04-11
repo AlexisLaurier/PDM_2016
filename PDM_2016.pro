@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,8 +13,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    terrain.cpp \
+    myopengl.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    terrain.h \
+    myopengl.h
 
 FORMS    += mainwindow.ui
+LIBS += -lopengl32 -lglu32
