@@ -23,3 +23,6 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 LIBS += -lopengl32 -lglu32
+
+RESOURCES += \
+    ressources.qrc

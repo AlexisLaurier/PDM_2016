@@ -4,6 +4,7 @@
 #define MYOPENGL_H
 
 #include <QGLWidget>
+#include "terrain.h"
 
 class MyOpenGl : public QGLWidget
 {
@@ -53,6 +54,7 @@ private:
     double zTrans;
 
     QPoint lastPos;
+    Terrain *terrain;
 };
 
 #endif // MYOPENGL_H

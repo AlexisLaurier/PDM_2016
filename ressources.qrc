@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/ressources">
+        <file>textures/filet.bmp</file>
+        <file>textures/herbe.bmp</file>
+        <file>textures/pierre.bmp</file>
+    </qresource>
+</RCC>

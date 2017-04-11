@@ -9,6 +9,7 @@
 MyOpenGl::MyOpenGl(QWidget *parent)
     : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
+    terrain = new Terrain(this);
     xRot = 0;
     yRot = 0;
     zRot = 0;
@@ -93,6 +94,10 @@ void MyOpenGl::setZTranslation(double move){
 
 void MyOpenGl::initializeGL()
 {
+
+
+
+
     qglClearColor(Qt::black);
 
     glEnable(GL_DEPTH_TEST);
@@ -116,7 +121,7 @@ void MyOpenGl::paintGL()
     glRotatef(yRot % 360, 0.0, 1.0, 0.0);
     glRotatef(zRot % 360, 0.0, 0.0, 1.0);
 
-    draw();
+    terrain->draw();
 }
 
 void MyOpenGl::resizeGL(int width, int height)
