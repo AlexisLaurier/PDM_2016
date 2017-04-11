@@ -98,7 +98,7 @@ void MyOpenGl::initializeGL()
 
 
 
-    qglClearColor(Qt::black);
+    qglClearColor(QColor(119, 181, 254));
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
@@ -106,7 +106,7 @@ void MyOpenGl::initializeGL()
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
 
-    static GLfloat lightPosition[4] = { 0, 0, 10, 1.0 };
+    static GLfloat lightPosition[4] = { 0, 0, 100, 0 };
     glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 }
 
@@ -164,74 +164,4 @@ void MyOpenGl::mouseMoveEvent(QMouseEvent *event)
     lastPos = event->pos();
 }
 
-void MyOpenGl::draw()
-{
 
-
-
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LEQUAL);
-    glDisable(GL_CULL_FACE);
-    glEnable ( GL_NORMALIZE );
-    glDepthMask ( GL_TRUE );
-    glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
-    glPointSize ( 1.0f );
-    glLineWidth ( 1.0f );
-    glEnable(GL_COLOR_MATERIAL);
-    glPushMatrix ();
-    glColor3f(1,1,1);
-    glEnable( GL_TEXTURE_2D );
-    /* BIND TEXTURE */
-   // glBindTexture(GL_TEXTURE_2D, GLtexture[0]);
-    glBegin(GL_QUADS);
-    glTexCoord2f (100,0);
-    glVertex3f(10,-10,0);
-    glTexCoord2f (100,100);
-    glVertex3f(10,10,0);
-    glTexCoord2f (0,100);
-    glVertex3f(-10,10,0);
-    glTexCoord2f (0,0);
-    glVertex3f(-10,-10,0);
-    glEnd();
-    glDisable( GL_TEXTURE_2D );
-    glEnable( GL_BLEND );
-    glDepthMask (GL_FALSE);
-    glEnable( GL_TEXTURE_2D );
-    glColor4f(1,1,1,0.4);
-    /* BIND TEXTURE */
-   // glBindTexture(GL_TEXTURE_2D, GLtexture[1]);
-    glBegin(GL_QUADS);
-    glTexCoord2f (0,0);
-    glVertex3f(-0.7,-0.7,0.1);
-    glTexCoord2f (1,0);
-    glVertex3f(-0.7,1.5,0.1);
-    glTexCoord2f (1,1);
-    glVertex3f(-0.7,1.5,0.5);
-    glTexCoord2f (0,1);
-    glVertex3f(-0.7,-0.7,0.5);
-    glEnd();
-    glBegin(GL_QUADS);
-    glTexCoord2f (0,0);
-    glVertex3f(-0.7,1.5,0.1);
-    glTexCoord2f (1,0);
-    glVertex3f(0.7,1.5,0.1);
-    glTexCoord2f (1,1);
-    glVertex3f(0.7,1.5,0.5);
-    glTexCoord2f (0,1);
-    glVertex3f(-0.7,1.5,0.5);
-    glEnd();
-    glBegin(GL_QUADS);
-    glTexCoord2f (0,0);
-    glVertex3f(0.7,1.5,0.1);
-    glTexCoord2f (1,0);
-    glVertex3f(0.7,-0.7,0.1);
-    glTexCoord2f (1,1);
-    glVertex3f(0.7,-0.7,0.5);
-    glTexCoord2f (0,1);
-    glVertex3f(0.7,1.5,0.5);
-    glEnd();
-    glDisable( GL_TEXTURE_2D );
-    glDepthMask (GL_TRUE);
-    glDisable( GL_BLEND );
-    glPopMatrix ();
-}
