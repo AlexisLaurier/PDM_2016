@@ -2,7 +2,7 @@
 
 #ifndef MYOPENGL_H
 #define MYOPENGL_H
-
+#include "opencv2/opencv.hpp"
 #include <QGLWidget>
 #include "terrain.h"
 
