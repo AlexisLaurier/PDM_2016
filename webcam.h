@@ -11,13 +11,15 @@ class Webcam : public QLabel
     Q_OBJECT
 public:
     explicit Webcam(QWidget *parent = 0);
+    ~Webcam();
 
 signals:
 
 public slots:
     void reload();
+    void detectHand();
 private:
-
+    cv::Mat image_;
     cv::VideoCapture * webCam_;
 };
 

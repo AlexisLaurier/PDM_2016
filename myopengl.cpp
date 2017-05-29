@@ -22,11 +22,6 @@ MyOpenGl::~MyOpenGl()
 {
 }
 
-QSize MyOpenGl::minimumSizeHint() const
-{
-    return QSize(400, 400);
-}
-
 
 static void qNormalizeAngle(int &angle)
 {
@@ -123,15 +118,13 @@ void MyOpenGl::paintGL()
 void MyOpenGl::resizeGL(int width, int height)
 {
     int side = qMin(width, height);
-    glViewport((width - side) / 2, (height - side) / 2, side, side);
+    glViewport(0, (height - side) / 2, width, side);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-#ifdef QT_OPENGL_ES_1
-    gluPerspective(25, 1, 1, 80);
-#else
-    gluPerspective(25, 1, 1, 80);
-#endif
+
+    gluPerspective(45, width/(float)height, 0.01, 200);
+
     glMatrixMode(GL_MODELVIEW);
 }
 
