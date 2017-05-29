@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include "opencv2/opencv.hpp"
+#include "webcam.h"
+
+
 namespace Ui {
 class MainWindow;
 }
@@ -15,10 +18,10 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 public slots:
-    void reload();
+
 private:
     Ui::MainWindow *ui;
-    cv::VideoCapture * webCam_;
+    Webcam *webcam;
 };
 
 #endif // MAINWINDOW_H

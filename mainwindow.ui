@@ -19,9 +19,12 @@
      <widget class="MyOpenGl" name="openGLWidget"/>
     </item>
     <item>
-     <widget class="QLabel" name="webcam">
-      <property name="text">
-       <string>TextLabel</string>
+     <widget class="Webcam" name="webcam" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
      </widget>
     </item>
@@ -53,6 +56,12 @@
    <class>MyOpenGl</class>
    <extends>QOpenGLWidget</extends>
    <header>myopengl.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Webcam</class>
+   <extends>QWidget</extends>
+   <header>webcam.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

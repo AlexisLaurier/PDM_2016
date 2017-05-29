@@ -24,13 +24,9 @@ MyOpenGl::~MyOpenGl()
 
 QSize MyOpenGl::minimumSizeHint() const
 {
-    return QSize(50, 50);
-}
-
-QSize MyOpenGl::sizeHint() const
-{
     return QSize(400, 400);
 }
+
 
 static void qNormalizeAngle(int &angle)
 {
