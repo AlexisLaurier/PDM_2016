@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     myopengl.cpp \
-    webcam.cpp
+    webcam.cpp \
+    element.cpp
 
 HEADERS  += mainwindow.h \
     myopengl.h \
-    webcam.h
+    webcam.h \
+    element.h
 
 FORMS    += mainwindow.ui
 LIBS += -lopengl32 \
