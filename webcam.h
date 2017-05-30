@@ -12,15 +12,26 @@ class Webcam : public QLabel
 public:
     explicit Webcam(QWidget *parent = 0);
     ~Webcam();
-
+    bool mainDetected() { return mainDetected_;}
+    cv::Mat image() { return image_;}
+    cv::Mat imageMain() { return imageMain_;}
+    cv::Rect rectMain() { return rectMain_;}
+    void setMainDetected(bool mainDetected) { mainDetected_ = mainDetected; }
+    void setImageMain(cv::Mat imageMain) { imageMain_=imageMain; }
+    void suivreMain();
+    void detecterMain();
 signals:
 
 public slots:
     void reload();
-    void detectHand();
 private:
     cv::Mat image_;
+    cv::Mat imageMain_;
+    cv::Mat imageResultat_;
     cv::VideoCapture * webCam_;
+    QSize webcamSize_;
+    bool mainDetected_;
+    cv::Rect rectMain_;
 };
 
 #endif // WEBCAM_H
