@@ -3,5 +3,9 @@
         <file>textures/filet.bmp</file>
         <file>textures/herbe.bmp</file>
         <file>textures/pierre.bmp</file>
+        <file>textures/bois.bmp</file>
+        <file>textures/cible.bmp</file>
+        <file>textures/drap.bmp</file>
     </qresource>
+    <qresource prefix="/"/>
 </RCC>

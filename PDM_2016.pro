@@ -14,12 +14,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    terrain.cpp \
     myopengl.cpp \
     webcam.cpp
 
 HEADERS  += mainwindow.h \
-    terrain.h \
     myopengl.h \
     webcam.h
 

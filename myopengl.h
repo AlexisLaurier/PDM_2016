@@ -4,7 +4,8 @@
 #define MYOPENGL_H
 #include "opencv2/opencv.hpp"
 #include <QGLWidget>
-#include "terrain.h"
+#include <QOpenGLTexture>
+
 
 class MyOpenGl : public QGLWidget
 {
@@ -49,9 +50,8 @@ private:
     double xTrans;
     double yTrans;
     double zTrans;
-
+    QOpenGLTexture *textures[6];
     QPoint lastPos;
-    Terrain *terrain;
 };
 
 #endif // MYOPENGL_H
