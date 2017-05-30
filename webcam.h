@@ -39,6 +39,8 @@ private:
     int lastX_;
     int lastY_;
     QTimer *timer;
+    double angle_;
+    double puissance_;
 };
 
 #endif // WEBCAM_H

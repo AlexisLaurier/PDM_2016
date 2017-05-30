@@ -124,10 +124,22 @@ void Webcam::suivreMain(){
     double minVal; double maxVal; Point minLoc; Point maxLoc;
     minMaxLoc( resultImage, &minVal, &maxVal, &minLoc, &maxLoc, Mat() );
     // Save the location fo the matched rect
-    if(abs(maxLoc.x-lastX_) > 50 || abs(maxLoc.y-lastY_) > 50){
+    if(abs(maxLoc.x-lastX_) > 150 || abs(maxLoc.y-lastY_) > 100){
         qDebug() <<" Tracking Perdu";
         perdu_ = true;
         return;
+    }
+    if(abs(maxLoc.x - lastX_) > 5 && maxLoc.y - lastY_ < 15){
+        qDebug() <<" Move X";
+        angle_ += maxLoc.x - lastX_;
+    }
+    if(abs(maxLoc.y - lastY_) > 5 && maxLoc.y - lastY_ < 15){
+        qDebug() <<" Move Y";
+        puissance_ += maxLoc.y - lastY_;
+    }
+    if(maxLoc.y - lastY_ >= 15){
+        qDebug() << "FEU !!!!";
+        mainDetected_ = false;
     }
     perdu_ = false;
     lastX_ = maxLoc.x;
