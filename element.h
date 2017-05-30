@@ -14,6 +14,7 @@ private:
     double c;
     double u;
     double e;
+    double size;
 public:
     double getx();
     double gety();
@@ -21,12 +22,14 @@ public:
     double getc();
     double getu();
     double gete();
+    double getsize();
     void setx(double n);
     void sety(double n);
     void setz(double n);
     void setc(double n);
     void setu(double n);
     void sete(double n);
+    void setsize(double n);
 };
 
 #endif // ELEMENT_H

@@ -8,6 +8,7 @@ z=0;
 c=0;
 u=0;
 e=0;
+size=1;
 }
 double element::getx()
 {
@@ -34,6 +35,10 @@ double element::gete()
 {
    return e;
 }
+double element::getsize()
+{
+   return size;
+}
 void element::setx(double n)
 {
     x=n;
@@ -58,4 +63,8 @@ void element::setu(double n)
 void element::sete(double n)
 {
     e=n;
+}
+void element::setsize(double n)
+{
+    size=n;
 }
