@@ -15,71 +15,13 @@ MyOpenGl::MyOpenGl(QWidget *parent)
     xTrans = 0;
     yTrans = 0;
     zTrans = -250;
+    parent_=parent;
 }
 
 MyOpenGl::~MyOpenGl()
 {
 }
 
-
-static void qNormalizeAngle(int &angle)
-{
-    while (angle < 0)
-        angle += 360 * 16;
-    while (angle > 360)
-        angle -= 360 * 16;
-}
-
-void MyOpenGl::setXRotation(int angle)
-{
-    qNormalizeAngle(angle);
-    if (angle != xRot) {
-        xRot = angle;
-        emit xRotationChanged(angle);
-        updateGL();
-    }
-}
-
-void MyOpenGl::setYRotation(int angle)
-{
-    qNormalizeAngle(angle);
-    if (angle != yRot) {
-        yRot = angle;
-        emit yRotationChanged(angle);
-        updateGL();
-    }
-}
-
-void MyOpenGl::setZRotation(int angle)
-{
-    qNormalizeAngle(angle);
-    if (angle != zRot) {
-        zRot = angle;
-        emit zRotationChanged(angle);
-        updateGL();
-    }
-}
-
-void MyOpenGl::setXTranslation(double move){
-    if (move != xTrans) {
-        xTrans = move;
-        updateGL();
-    }
-}
-
-void MyOpenGl::setYTranslation(double move){
-    if (move != yTrans) {
-        yTrans = move;
-        updateGL();
-    }
-}
-
-void MyOpenGl::setZTranslation(double move){
-    if (move != zTrans) {
-        zTrans = move;
-        updateGL();
-    }
-}
 
 
 void MyOpenGl::initializeGL()
@@ -112,12 +54,10 @@ void MyOpenGl::paintGL()
     //Position de la camera
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    glTranslatef(xTrans /20 , 0, 0);
-    glTranslatef(0 , yTrans /20, 0);
-    glTranslatef(0 , 0, zTrans /20);
-    glRotatef(xRot % 360, 1.0, 0.0, 0.0);
-    glRotatef(yRot % 360, 0.0, 1.0, 0.0);
-    glRotatef(zRot % 360, 0.0, 0.0, 1.0);
+    glTranslatef(camera->getx() , camera->gety(), camera->getz());
+    glRotatef(camera->getc(), 1.0, 0.0, 0.0);
+    glRotatef(camera->getu(), 0.0, 1.0, 0.0);
+    glRotatef(camera->gete(), 0.0, 0.0, 1.0);
     //Correspondance des textures avec celles stockés dans le champs textures[]
     QOpenGLTexture *texture_herbe;
     QOpenGLTexture *texture_filet;
@@ -194,9 +134,9 @@ void MyOpenGl::paintGL()
 
     //Affichage du trébuchet
     glPushMatrix();
-    glScalef(0.1,0.1,0.1);
-    glTranslatef(0,-5,0);
-    if(true)
+    glScalef(trebuchet->getsize(),trebuchet->getsize(),trebuchet->getsize());
+    glTranslatef(trebuchet->getx(),trebuchet->gety(),trebuchet->getz());
+    if(trebuchet->getdisplayed())
     {
         glColor3f(0.588,0.588,0.588);
         glEnable( GL_TEXTURE_2D );
@@ -1209,7 +1149,7 @@ void MyOpenGl::paintGL()
         glVertex3f(0.496057,-0.0626666,0.5);
         glEnd ();
         glPopMatrix ();
-        glRotatef(50,0,0,1);
+        glRotatef(trebuchet->getc(),0,0,1);
         glTranslatef(0,0,0.1);
         glPushMatrix ();
         glTranslatef(0.35,0,0);
@@ -1818,7 +1758,7 @@ void MyOpenGl::paintGL()
         glPopMatrix ();
         glTranslatef(0,0,1.35);
         glPushMatrix ();
-        glRotatef(-10,1,0,0);
+        glRotatef(trebuchet->getu(),1,0,0);
         glBegin(GL_QUAD_STRIP);
         glVertex3f(0.1,-2.3,0.1);
         glVertex3f(0.1,-2.3,-0.1);
@@ -1847,7 +1787,8 @@ void MyOpenGl::paintGL()
         /* BIND TEXTURE */
         textures[4]->bind();
         glTranslatef(0,-2.2,-0.05);
-        glRotatef(-45,1,0,0);
+        glRotatef(trebuchet->gete(),1,0,0);
+        glScalef(1,1,0.5);
         glBegin(GL_QUAD_STRIP);
         glTexCoord2f (0,1);
         glVertex3f(0.1,0,0.1);
@@ -2953,6 +2894,17 @@ void MyOpenGl::paintGL()
         glDisable( GL_TEXTURE_2D );
     }
     glPopMatrix();
+
+    //Affichage de la boule
+    glPushMatrix();
+    glScalef(boule->getsize(),boule->getsize(),boule->getsize());
+    glTranslatef(boule->getx(),boule->gety(),boule->getz());
+    if(boule->getdisplayed())
+    {
+
+    }
+    glPopMatrix();
+
 }
 
 
@@ -2969,29 +2921,6 @@ void MyOpenGl::resizeGL(int width, int height)
     glMatrixMode(GL_MODELVIEW);
 }
 
-void MyOpenGl::mousePressEvent(QMouseEvent *event)
-{
-    lastPos = event->pos();
-}
 
-void MyOpenGl::wheelEvent(QWheelEvent *event){
-    setZTranslation(zTrans + 0.15*event->delta());
-}
-
-void MyOpenGl::mouseMoveEvent(QMouseEvent *event)
-{
-    int dx = event->x() - lastPos.x();
-    int dy = event->y() - lastPos.y();
-
-    if (event->buttons() & Qt::LeftButton) {
-        setXRotation(xRot + 0.5 * dy);
-        setYRotation(yRot  + 0.5 * dx);
-    } else if (event->buttons() & Qt::RightButton) {
-        setXTranslation(xTrans + 0.2* dx);
-        setYTranslation(yTrans + 0.2* (-dy));
-    }
-
-    lastPos = event->pos();
-}
 
 

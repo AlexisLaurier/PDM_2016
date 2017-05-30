@@ -2,11 +2,11 @@
 #define ELEMENT_H
 
 
-class element
+class Element
 {
 
 public:
-    element();
+    Element();
 private:
     double x;
     double y;
@@ -15,6 +15,7 @@ private:
     double u;
     double e;
     double size;
+    bool displayed;
 public:
     double getx();
     double gety();
@@ -23,13 +24,11 @@ public:
     double getu();
     double gete();
     double getsize();
-    void setx(double n);
-    void sety(double n);
-    void setz(double n);
-    void setc(double n);
-    void setu(double n);
-    void sete(double n);
-    void setsize(double n);
+    bool getdisplayed();
+    void setpos(double i,double o, double p);
+    void setrot(double n, double m, double l);
+    void setsize(double n){size=n;}
+    void setdisplayed(bool choice){displayed=choice;}
 };
 
 #endif // ELEMENT_H

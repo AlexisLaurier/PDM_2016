@@ -1,6 +1,6 @@
 #include "element.h"
 
-element::element()
+Element::Element()
 {
 x=0;
 y=0;
@@ -9,62 +9,51 @@ c=0;
 u=0;
 e=0;
 size=1;
+displayed=false;
 }
-double element::getx()
+double Element::getx()
 {
    return x;
 }
 
-double element::gety()
+double Element::gety()
 {
    return y;
 }
-double element::getz()
+double Element::getz()
 {
    return z;
 }
-double element::getc()
+double Element::getc()
 {
    return c;
 }
-double element::getu()
+double Element::getu()
 {
    return u;
 }
-double element::gete()
+double Element::gete()
 {
    return e;
 }
-double element::getsize()
+double Element::getsize()
 {
    return size;
 }
-void element::setx(double n)
+bool Element::getdisplayed()
 {
-    x=n;
+   return displayed;
+}
+void Element::setpos(double i,double o, double p)
+{
+    x=i;
+    y=o;
+    z=p;
 }
 
-void element::sety(double n)
-{
-    y=n;
-}
-void element::setz(double n)
-{
-    z=n;
-}
-void element::setc(double n)
+void Element::setrot(double n, double m, double l)
 {
     c=n;
-}
-void element::setu(double n)
-{
-    u=n;
-}
-void element::sete(double n)
-{
-    e=n;
-}
-void element::setsize(double n)
-{
-    size=n;
+    u=m;
+    e=l;
 }

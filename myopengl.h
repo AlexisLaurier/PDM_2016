@@ -5,6 +5,7 @@
 #include "opencv2/opencv.hpp"
 #include <QGLWidget>
 #include <QOpenGLTexture>
+#include "element.h"
 
 
 class MyOpenGl : public QGLWidget
@@ -22,25 +23,12 @@ protected:
     void paintGL();
     void resizeGL(int width, int height);
 
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void wheelEvent(QWheelEvent *event);
-
 public slots:
-    // slots for xyz-rotation slider
-    void setXRotation(int angle);
-    void setYRotation(int angle);
-    void setZRotation(int angle);
-    void setXTranslation(double move);
-    void setYTranslation(double move);
-    void setZTranslation(double move);
+    void settrebuchet(Element* elm) {trebuchet = elm;}
+    void setboule(Element* elm){boule=elm;}
+    void setcible(Element* elm){cible=elm;}
+    void setcamera(Element* elm){camera=elm;}
 
-
-signals:
-    // signaling rotation from mouse movement
-    void xRotationChanged(int angle);
-    void yRotationChanged(int angle);
-    void zRotationChanged(int angle);
 
 private:
 
@@ -52,6 +40,12 @@ private:
     double zTrans;
     QOpenGLTexture *textures[6];
     QPoint lastPos;
+    QWidget *parent_;
+    Element *trebuchet;
+    Element *cible;
+    Element *boule;
+    Element *camera;
+
 };
 
 #endif // MYOPENGL_H
