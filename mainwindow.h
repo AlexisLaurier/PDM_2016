@@ -22,7 +22,6 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    Webcam *webcam;
 };
 
 #endif // MAINWINDOW_H

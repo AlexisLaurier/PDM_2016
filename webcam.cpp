@@ -37,7 +37,7 @@ void Webcam::reload(){
 
             // Flip to get a mirror effect
             flip(image_,image_,1);
-            qDebug() << "Main : "<< mainDetected_;
+
             if(!mainDetected_){
                 detecterMain();
             }else{
@@ -71,10 +71,25 @@ void Webcam::suivreMain(){
     Mat resultImage;    // to store the matchTemplate result
     resultImage.create( image_.cols-imageMain_.cols+1, image_.rows-imageMain_.rows+1, CV_32FC1 );
     Rect resultRect;    // to store the location of the matched rect
-    imshow("image", image_);
-    imshow("image main", imageMain_);
+
     // Do the Matching between the frame and the templateImage
-     matchTemplate( image_, imageMain_, resultImage, TM_CCORR_NORMED );
+    int coordX, coordY;
+    if(lastX_>100 && lastY_>100){
+        coordX = lastX_-100;
+        coordY = lastY_-100;
+    }else if(lastX_>100){
+        coordX = lastX_-100;
+        coordY = 0;
+    }else if(lastY_>100){
+        coordX = 0;
+        coordY = lastY_-100;
+    }else{
+        coordX = 0;
+        coordY = 0;
+    }
+    Rect rectRecherche(coordX, coordY, 100, 100);
+    Mat zoneRecherche = Mat(image_, rectRecherche).clone();
+     matchTemplate( zoneRecherche, imageMain_, resultImage, TM_CCORR_NORMED );
 
     // Localize the best match with minMaxLoc
     double minVal; double maxVal; Point minLoc; Point maxLoc;

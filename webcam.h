@@ -32,6 +32,8 @@ private:
     QSize webcamSize_;
     bool mainDetected_;
     cv::Rect rectMain_;
+    int lastX_;
+    int lastY_;
 };
 
 #endif // WEBCAM_H
