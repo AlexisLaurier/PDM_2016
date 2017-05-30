@@ -18,8 +18,11 @@ public:
     cv::Rect rectMain() { return rectMain_;}
     void setMainDetected(bool mainDetected) { mainDetected_ = mainDetected; }
     void setImageMain(cv::Mat imageMain) { imageMain_=imageMain; }
+    void setLastX(int x){ lastX_=x;}
+    void setLastY(int y){ lastY_=y;}
     void suivreMain();
     void detecterMain();
+
 signals:
 
 public slots:
@@ -31,9 +34,11 @@ private:
     cv::VideoCapture * webCam_;
     QSize webcamSize_;
     bool mainDetected_;
+    bool perdu_;
     cv::Rect rectMain_;
     int lastX_;
     int lastY_;
+    QTimer *timer;
 };
 
 #endif // WEBCAM_H
