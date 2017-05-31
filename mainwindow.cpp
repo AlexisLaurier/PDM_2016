@@ -14,12 +14,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->openGLWidget->setcamera(&camera);
     ui->openGLWidget->setboule(&boule);
     ui->openGLWidget->setcible(&cible);
+    ui->webcam->setTrebuchet(&trebuchet);
+
 
 
     //initialisation du trébuchet
     trebuchet.setsize(0.02);
     trebuchet.setpos(0,-5,0);
-    trebuchet.setrot(90,20,-20);
+    trebuchet.setrot(45,0,-20);
     trebuchet.setdisplayed(true);
 
     //initialisation de la boule
@@ -40,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //position de la bouboule 0 -2.15 0.35
 
-
+    connect(ui->webcam, SIGNAL(changementOpenGl()), ui->openGLWidget, SLOT(updateGL()));
 }
 
 

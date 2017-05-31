@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QLabel>
 #include "opencv2/opencv.hpp"
-
+#include "element.h"
 
 class Webcam : public QLabel
 {
@@ -22,11 +22,14 @@ public:
     void setLastY(int y){ lastY_=y;}
     void suivreMain();
     void detecterMain();
+    void setTrebuchet(Element * trebuchet) {trebuchet_ = trebuchet; }
 
 signals:
 
 public slots:
     void reload();
+signals:
+    void changementOpenGl();
 private:
     cv::Mat image_;
     cv::Mat imageMain_;
@@ -41,6 +44,7 @@ private:
     QTimer *timer;
     double angle_;
     double puissance_;
+    Element* trebuchet_;
 };
 
 #endif // WEBCAM_H

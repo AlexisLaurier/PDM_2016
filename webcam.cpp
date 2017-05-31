@@ -16,6 +16,8 @@ Webcam::Webcam(QWidget *parent) : QLabel(parent)
     rectMain_ = Rect((webcamSize_.width()-50)/2,(webcamSize_.height()-50)/2,50,50);
     lastX_ = (webcamSize_.width()-50)/2;
     lastY_ = (webcamSize_.height()-50)/2;
+    angle_ = 45;
+    puissance_ = 0;
     if(webCam_->isOpened()){
         qDebug()<<"width :" << QString::number(webCam_->get(CV_CAP_PROP_FRAME_WIDTH)) << " height: " << QString::number(webCam_->get(CV_CAP_PROP_FRAME_HEIGHT));
         webCam_->set(CV_CAP_PROP_FRAME_WIDTH,640);
@@ -124,7 +126,7 @@ void Webcam::suivreMain(){
     double minVal; double maxVal; Point minLoc; Point maxLoc;
     minMaxLoc( resultImage, &minVal, &maxVal, &minLoc, &maxLoc, Mat() );
     // Save the location fo the matched rect
-    if(abs(maxLoc.x-lastX_) > 150 || abs(maxLoc.y-lastY_) > 100){
+    if(abs(maxLoc.x-lastX_) > 150 || abs(maxLoc.y-lastY_) > 150){
         qDebug() <<" Tracking Perdu";
         perdu_ = true;
         return;
@@ -132,10 +134,24 @@ void Webcam::suivreMain(){
     if(abs(maxLoc.x - lastX_) > 5 && maxLoc.y - lastY_ < 15){
         qDebug() <<" Move X";
         angle_ += maxLoc.x - lastX_;
+        if(angle_ < -90){
+            angle_ = -90;
+        }else if (angle_ > 90){
+            angle_ = 90;
+        }
+        trebuchet_->setrot(angle_, trebuchet_->getu(), trebuchet_->gete());
+        emit changementOpenGl();
     }
     if(abs(maxLoc.y - lastY_) > 5 && maxLoc.y - lastY_ < 15){
         qDebug() <<" Move Y";
         puissance_ += maxLoc.y - lastY_;
+        if(puissance_ < -5){
+            puissance_ = -5;
+        }else if( puissance_ > 20){
+            puissance_ = 20;
+        }
+        trebuchet_->setrot(trebuchet_->getc(), puissance_, trebuchet_->gete());
+        emit changementOpenGl();
     }
     if(maxLoc.y - lastY_ >= 15){
         qDebug() << "FEU !!!!";
