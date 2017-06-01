@@ -3,6 +3,8 @@
 #include "opencv2/opencv.hpp"
 #include <QKeyEvent>
 #include <QDebug>
+#include <QTimer>
+
 
 using namespace cv;
 MainWindow::MainWindow(QWidget *parent) :
@@ -16,16 +18,24 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->openGLWidget->setcible(&cible);
     ui->webcam->setTrebuchet(&trebuchet);
 
-    tir_.setboule(boule);
-    tir_.setbouleenlair(bouleenlair);
-    tir_.setcible(cible);
-    tir_.settrebuchet(trebuchet);
+    tir_.setboule(&boule);
+    tir_.setbouleenlair(&bouleenlair);
+    tir_.setcible(&cible);
+    tir_.settrebuchet(&trebuchet);
 
     tirencours=false;
+    horlogeS_ = 0;
+    horlogeM_ = 0;
 
-resetaffichage();
 
+    resetaffichage();
+
+    timer_ = new QTimer(this);
     connect(ui->webcam, SIGNAL(changementOpenGl()), ui->openGLWidget, SLOT(updateGL()));
+    connect(timer_, SIGNAL(timeout()), this, SLOT(incrementHorloge()));
+    timer_->start(1000);
+
+
 }
 
 
@@ -109,4 +119,13 @@ void MainWindow::on_horizontalSlider_6_sliderMoved(int position)
 {
     camera.setrot(camera.getc(),camera.getu(),double(position));
     ui->openGLWidget->updateGL();
+}
+
+void MainWindow::incrementHorloge(){
+    horlogeS_ += 1;
+    if(horlogeS_ >= 60){
+        horlogeS_ = 0;
+        horlogeM_ += 1;
+    }
+    ui->timerLabel->setText(QString::number(horlogeM_) + "min " + QString::number(horlogeS_)+"s");
 }

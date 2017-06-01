@@ -14,10 +14,10 @@ public:
     void settrebuchet(Element* elm){trebuchet=elm;}
 private:
     bool surtrebuchet;
-    Element cible;
-    Element bouleenlair;
-    Element boule;
-    Element trebuchet;
+    Element* cible;
+    Element* bouleenlair;
+    Element* boule;
+    Element* trebuchet;
 };
 
 #endif // TIR_H

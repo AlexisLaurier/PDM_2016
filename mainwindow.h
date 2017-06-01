@@ -41,6 +41,8 @@ private slots:
 
     void on_horizontalSlider_6_sliderMoved(int position);
 
+    void incrementHorloge();
+
 private:
     Ui::MainWindow *ui;
     Element trebuchet;
@@ -49,6 +51,10 @@ private:
     Element cible;
     Element camera;
     tir tir_;
+    QTimer *timer_;
+    bool tirencours;
+    int horlogeS_;
+    int horlogeM_;
 };
 
 #endif // MAINWINDOW_H

@@ -133,7 +133,7 @@
          <item>
           <widget class="QLabel" name="timerLabel">
            <property name="text">
-            <string>0</string>
+            <string>0min 0s</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
