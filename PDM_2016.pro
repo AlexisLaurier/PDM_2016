@@ -16,12 +16,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     myopengl.cpp \
     webcam.cpp \
-    element.cpp
+    element.cpp \
+    tir.cpp
 
 HEADERS  += mainwindow.h \
     myopengl.h \
     webcam.h \
-    element.h
+    element.h \
+    tir.h
 
 FORMS    += mainwindow.ui
 LIBS += -lopengl32 \
