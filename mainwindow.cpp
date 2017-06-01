@@ -25,13 +25,13 @@ MainWindow::MainWindow(QWidget *parent) :
     trebuchet.setdisplayed(true);
 
     //initialisation de la boule
-    boule.setsize(0.1);
+    boule.setsize(0.01);
     boule.setpos(0,-2.15,0.35);
-    trebuchet.setdisplayed(true);
+    boule.setdisplayed(true);
 
     //initialisation de la cible
     cible.setdisplayed(false);
-    cible.setsize(0.1);
+    cible.setsize(0.01);
     cible.setpos(0,4,1);
     cible.setrot(90,0,0);
 
