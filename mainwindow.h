@@ -5,6 +5,7 @@
 #include "opencv2/opencv.hpp"
 #include "webcam.h"
 #include "element.h"
+#include "tir.h"
 
 
 namespace Ui {
@@ -22,6 +23,7 @@ public:
     Element * gettrebuchet() {return &trebuchet;}
     Element * getboule() {return &boule;}
     Element * getcible(){return &cible;}
+    void resetaffichage();
 
 
 public slots:
@@ -43,8 +45,10 @@ private:
     Ui::MainWindow *ui;
     Element trebuchet;
     Element boule;
+    Element bouleenlair;
     Element cible;
     Element camera;
+    tir tir_;
 };
 
 #endif // MAINWINDOW_H

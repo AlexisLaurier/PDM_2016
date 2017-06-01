@@ -16,31 +16,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->openGLWidget->setcible(&cible);
     ui->webcam->setTrebuchet(&trebuchet);
 
+    tir_.setboule(boule);
+    tir_.setbouleenlair(bouleenlair);
+    tir_.setcible(cible);
+    tir_.settrebuchet(trebuchet);
 
+    tirencours=false;
 
-    //initialisation du trébuchet
-    trebuchet.setsize(0.02);
-    trebuchet.setpos(0,-5,0);
-    trebuchet.setrot(45,0,-20);
-    trebuchet.setdisplayed(true);
-
-    //initialisation de la boule
-    boule.setsize(0.01);
-    boule.setpos(0,-2.15,0.35);
-    boule.setdisplayed(true);
-
-    //initialisation de la cible
-    cible.setdisplayed(false);
-    cible.setsize(0.01);
-    cible.setpos(0,4,1);
-    cible.setrot(90,0,0);
-
-    //initialisation de la camera
-    camera.setdisplayed(true);
-    camera.setpos (0,-0.03,-0.27);
-    camera.setrot(275,0,350);
-
-    //position de la bouboule 0 -2.15 0.35
+resetaffichage();
 
     connect(ui->webcam, SIGNAL(changementOpenGl()), ui->openGLWidget, SLOT(updateGL()));
 }
@@ -59,6 +42,37 @@ void MainWindow::keyPressEvent ( QKeyEvent * event ){
         ui->webcam->setMainDetected(true);
         return;
     }
+}
+void MainWindow::resetaffichage()
+{
+    //initialisation du trébuchet
+    trebuchet.setsize(0.02);
+    trebuchet.setpos(0,-5,0);
+    trebuchet.setrot(45,0,-20);
+    trebuchet.setdisplayed(true);
+
+    //initialisation de la boule
+    boule.setsize(0.01);
+    boule.setpos(0,-2.15,0.35);
+    boule.setdisplayed(true);
+
+    //initialisation de la boule en l'air
+    bouleenlair.setsize(0.01);
+    bouleenlair.setpos(0,-2.15,0.35);
+    bouleenlair.setdisplayed(true);
+
+    //initialisation de la cible
+    cible.setdisplayed(false);
+    cible.setsize(0.01);
+    cible.setpos(0,4,1);
+    cible.setrot(90,0,0);
+
+    //initialisation de la camera
+    camera.setdisplayed(true);
+    camera.setpos (0,-0.03,-0.27);
+    camera.setrot(275,0,350);
+
+    //position de la bouboule 0 -2.15 0.35
 }
 
 void MainWindow::on_horizontalSlider_sliderMoved(int position)
