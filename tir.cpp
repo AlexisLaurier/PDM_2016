@@ -1,6 +1,7 @@
 #include "tir.h"
 #include <QTimer>
 #include <QtWidgets>
+#include <QtMath>
 using namespace std;
 Tir::Tir(QWidget *parent) : QLabel(parent)
 {
@@ -21,21 +22,32 @@ if (cpt_ == 0){
     puissance =trebuchet->getu();
 }
 
-if(trebuchet->gete()>=-40){
+
 
     if(trebuchet->getu()>-90){
-        trebuchet->setrot(trebuchet->getc(),puissance-time*time*0.00001, 0);
+        trebuchet->setrot(trebuchet->getc(),puissance-time*time*0.00001, trebuchet->gete());
         emit changementOpenGl();
         return 0;
 
     }
 
-    else {
-        trebuchet->setrot(trebuchet->getc(),-90, -puissance-time*0.001);
+    if(trebuchet->gete()>-20) {
+        trebuchet->setrot(trebuchet->getc(),-90, -puissance-time*0.01);
         emit changementOpenGl();
+        qDebug() << "le drap tourne";
         return 0;
 
     }
+
+if(bouleenlair->getz()>0)
+{
+    qDebug() << "suis en lair";
+    surtrebuchet=false;
+    if(cpt_==1) {time=0; cpt_++;}
+    boule->setdisplayed(false);
+    bouleenlair->setdisplayed(true);
+    bouleenlair->setpos(qSin(-trebuchet->getc())*puissance*time*0.001,qCos(trebuchet->getc())*puissance*time*0.001,-0.0005*time*time*0.00001+puissance*time*0.001+0.1);
+    return 0;
 }
 
 //mouvement jusqu'à la cible

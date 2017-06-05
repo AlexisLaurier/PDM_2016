@@ -66,7 +66,7 @@ void MainWindow::resetaffichage()
     //initialisation du trébuchet
     trebuchet.setsize(0.02);
     trebuchet.setpos(0,-5,0);
-    trebuchet.setrot(45,0,-20);
+    trebuchet.setrot(0,0,-20);
      //trebuchet.setrot(45,-45,-20);
     trebuchet.setdisplayed(true);
 
@@ -77,6 +77,8 @@ void MainWindow::resetaffichage()
 
     //initialisation de la boule en l'air
     bouleenlair.setdisplayed(false);
+    bouleenlair.setsize(0.2);
+    bouleenlair.setpos(0,0,0.1);
 
     //initialisation de la cible
     cible.setdisplayed(true);
