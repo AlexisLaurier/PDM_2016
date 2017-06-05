@@ -21,7 +21,7 @@ if (cpt_ == 0){
     puissance =trebuchet->getu();
 }
 
-if(trebuchet->gete()>=-20){
+if(trebuchet->gete()>=-40){
 
     if(trebuchet->getu()>-90){
         trebuchet->setrot(trebuchet->getc(),puissance-time*time*0.00001, 0);
@@ -31,7 +31,7 @@ if(trebuchet->gete()>=-20){
     }
 
     else {
-        trebuchet->setrot(trebuchet->getc(),-90, -time*0.1*0.001);
+        trebuchet->setrot(trebuchet->getc(),-90, -puissance-time*0.001);
         emit changementOpenGl();
         return 0;
 
