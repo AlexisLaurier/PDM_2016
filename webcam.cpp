@@ -2,6 +2,7 @@
 #include <QTimer>
 #include <QImage>
 #include <QDebug>
+#include "tir.h"
 
 using namespace cv;
 
@@ -245,7 +246,8 @@ void Webcam::suivreMain(){
         emit changementOpenGl();
     }
     if(maxLoc.y - lastY_ >= 17){
-        //qDebug() << "FEU !!!!";
+        qDebug() << "FEU !!!!";
+        tir_->tirer();
         mainDetected_ = false;
         lastX_ = (webcamSize_.width()-50)/2;
         lastY_ = (webcamSize_.height()-50)/2;

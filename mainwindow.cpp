@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->openGLWidget->setcible(&cible);
     ui->openGLWidget->setbouleenlair(&bouleenlair);
     ui->webcam->setTrebuchet(&trebuchet);
+    ui->webcam->setTir(&tir_);
 
     tir_.setboule(&boule);
     tir_.setbouleenlair(&bouleenlair);

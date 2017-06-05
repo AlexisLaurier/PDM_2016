@@ -1,13 +1,13 @@
 #include "tir.h"
 #include <QTimer>
-
-tir::tir() : QLabel()
+using namespace std;
+Tir::Tir()
 {
 surtrebuchet=true;
 }
 
 
-int tir::tirer()
+int Tir::tirer()
 {
 boule->setdisplayed(true);
 bouleenlair->setdisplayed(false);
@@ -15,7 +15,7 @@ bouleenlair->setdisplayed(false);
 //mouvement jusqu'à la verticale
 time=0;
 QTimer *timer = new QTimer(this);
-connect(timer, SIGNAL(timeout()),this, SLOT(increment()));
+connect(timer, SIGNAL(timeout()),this, SLOT(updatetime()));
 timer->start(10);
 int puissance =trebuchet->getu();
 while(trebuchet->gete()>=-20){
@@ -37,5 +37,5 @@ while(time<1000){};
 
 }
 
-void tir::increment()
+void Tir::updatetime()
 {time+=10;}

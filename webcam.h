@@ -5,6 +5,7 @@
 #include <QLabel>
 #include "opencv2/opencv.hpp"
 #include "element.h"
+#include "tir.h"
 
 class Webcam : public QLabel
 {
@@ -23,6 +24,7 @@ public:
     void suivreMain();
     void detecterMain();
     void setTrebuchet(Element * trebuchet) {trebuchet_ = trebuchet; }
+    void setTir(Tir *elm){tir_=elm;}
 
 signals:
 
@@ -49,6 +51,7 @@ private:
     double angle_;
     double puissance_;
     Element* trebuchet_;
+    Tir* tir_;
 };
 
 #endif // WEBCAM_H

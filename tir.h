@@ -3,11 +3,11 @@
 #include "element.h"
 #include <QLabel>
 
-class tir : public QLabel
+class Tir : public QLabel
 {
 
 public:
-    tir();
+    Tir();
     int tirer();
     void setcible(Element* elm){cible=elm;}
     void setbouleenlair(Element* elm){bouleenlair=elm;}
@@ -15,7 +15,7 @@ public:
     void settrebuchet(Element* elm){trebuchet=elm;}
 
 public slots:
-    void increment();
+    void updatetime();
 private:
     bool surtrebuchet;
     bool tirencours;
