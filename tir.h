@@ -14,6 +14,7 @@ public:
     void settrebuchet(Element* elm){trebuchet=elm;}
 private:
     bool surtrebuchet;
+
     Element* cible;
     Element* bouleenlair;
     Element* boule;
