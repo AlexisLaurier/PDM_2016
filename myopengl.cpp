@@ -9,12 +9,6 @@
 MyOpenGl::MyOpenGl(QWidget *parent)
     : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
-    xRot = 0;
-    yRot = 0;
-    zRot = 0;
-    xTrans = 0;
-    yTrans = 0;
-    zTrans = -250;
     parent_=parent;
 }
 
