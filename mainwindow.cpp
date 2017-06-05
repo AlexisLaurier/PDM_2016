@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->openGLWidget->setcamera(&camera);
     ui->openGLWidget->setboule(&boule);
     ui->openGLWidget->setcible(&cible);
+    ui->openGLWidget->setbouleenlair(&bouleenlair);
     ui->webcam->setTrebuchet(&trebuchet);
 
     tir_.setboule(&boule);
@@ -62,14 +63,14 @@ void MainWindow::resetaffichage()
     trebuchet.setdisplayed(true);
 
     //initialisation de la boule
-    boule.setsize(0.01);
-    boule.setpos(0,-2.15,0.35);
+    boule.setsize(1);
+    boule.setpos(0,-0.043,0.007);
     boule.setdisplayed(true);
 
     //initialisation de la boule en l'air
     bouleenlair.setsize(0.01);
     bouleenlair.setpos(0,-2.15,0.35);
-    bouleenlair.setdisplayed(true);
+    bouleenlair.setdisplayed(false);
 
     //initialisation de la cible
     cible.setdisplayed(false);

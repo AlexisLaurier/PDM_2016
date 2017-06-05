@@ -26,6 +26,7 @@ protected:
 public slots:
     void settrebuchet(Element* elm) {trebuchet = elm;}
     void setboule(Element* elm){boule=elm;}
+    void setbouleenlair(Element* elm){bouleenlair=elm;}
     void setcible(Element* elm){cible=elm;}
     void setcamera(Element* elm){camera=elm;}
 
@@ -45,6 +46,7 @@ private:
     Element *cible;
     Element *boule;
     Element *camera;
+    Element *bouleenlair;
 
 };
 
