@@ -24,14 +24,16 @@ if(trebuchet->gete()>=-20){
 
     if(trebuchet->getu()>=0){
         trebuchet->setrot(trebuchet->getc(),puissance-time*time, 0);
-        return 0;
         emit changementOpenGl();
+        return 0;
+
     }
 
     else {
         trebuchet->setrot(trebuchet->getc(),0, -time*0.1);
-        return 0;
         emit changementOpenGl();
+        return 0;
+
     }
 }
 
@@ -48,4 +50,4 @@ return 3;
 }
 
 void Tir::updatetime()
-{time+=100;}
+{time+=10;}
