@@ -245,7 +245,7 @@ void Webcam::suivreMain(){
         emit changementOpenGl();
     }
     if(maxLoc.y - lastY_ >= 17){
-        qDebug() << "FEU !!!!";
+        //qDebug() << "FEU !!!!";
 
         mainDetected_ = false;
         lastX_ = (webcamSize_.width()-50)/2;
