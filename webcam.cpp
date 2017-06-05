@@ -20,6 +20,7 @@ Webcam::Webcam(QWidget *parent) : QLabel(parent)
     lastY_ = (webcamSize_.height()-50)/2;
     angle_ = 45;
     puissance_ = 0;
+    tirEnCours_ = false;
     if(webCam_->isOpened()){
         qDebug()<<"width :" << QString::number(webCam_->get(CV_CAP_PROP_FRAME_WIDTH)) << " height: " << QString::number(webCam_->get(CV_CAP_PROP_FRAME_HEIGHT));
         webCam_->set(CV_CAP_PROP_FRAME_WIDTH,640);
@@ -51,7 +52,13 @@ void Webcam::reload(){
             // Flip to get a mirror effect
             flip(image_,image_,1);
             image_ = Mat(image_, Rect(0,0,640,240));
-            if(!mainDetected_ && !detectionEnCours_){
+            if(tirEnCours_){
+                if(tir_->tirer() > 0){
+                    tirEnCours_ = false;
+                    return;
+                }
+            }
+            else if(!mainDetected_ && !detectionEnCours_){
                 detecterMain();
             }
             else if(!mainDetected_ && detectionEnCours_){
@@ -248,6 +255,7 @@ void Webcam::suivreMain(){
     if(maxLoc.y - lastY_ >= 17){
         qDebug() << "FEU !!!!";
         tir_->tirer();
+        tirEnCours_ = true;
         mainDetected_ = false;
         lastX_ = (webcamSize_.width()-50)/2;
         lastY_ = (webcamSize_.height()-50)/2;

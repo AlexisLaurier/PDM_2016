@@ -42,6 +42,7 @@ private:
     bool mainDetected_;
     bool perdu_;
     bool detectionEnCours_;
+    bool tirEnCours_;
     cv::Rect rectMain_;
     int lastX_;
     int lastY_;

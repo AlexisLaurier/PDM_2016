@@ -1,13 +1,14 @@
 #ifndef TIR_H
 #define TIR_H
 #include "element.h"
+#include <QWidget>
 #include <QLabel>
 
 class Tir : public QLabel
 {
-
+    Q_OBJECT
 public:
-    Tir();
+    Tir(QWidget *parent = 0);
     int tirer();
     void setcible(Element* elm){cible=elm;}
     void setbouleenlair(Element* elm){bouleenlair=elm;}
@@ -24,6 +25,7 @@ private:
     Element* boule;
     Element* trebuchet;
     int time;
+    int cpt_;
 
 };
 

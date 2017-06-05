@@ -50,7 +50,7 @@ private:
     Element bouleenlair;
     Element cible;
     Element camera;
-    Tir tir_;
+    Tir *tir_;
     QTimer *timer_;
     bool tirencours;
     int horlogeS_;

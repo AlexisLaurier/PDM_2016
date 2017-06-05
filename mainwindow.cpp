@@ -18,14 +18,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->openGLWidget->setcible(&cible);
     ui->openGLWidget->setbouleenlair(&bouleenlair);
     ui->webcam->setTrebuchet(&trebuchet);
-    ui->webcam->setTir(&tir_);
-
-    tir_.setboule(&boule);
-    tir_.setbouleenlair(&bouleenlair);
-    tir_.setcible(&cible);
-    tir_.settrebuchet(&trebuchet);
 
 
+    tir_ = new Tir(this);
+    tir_->setboule(&boule);
+    tir_->setbouleenlair(&bouleenlair);
+    tir_->setcible(&cible);
+    tir_->settrebuchet(&trebuchet);
+
+    ui->webcam->setTir(tir_);
     tirencours=false;
     horlogeS_ = 0;
     horlogeM_ = 0;
@@ -37,6 +38,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->webcam, SIGNAL(changementOpenGl()), ui->openGLWidget, SLOT(updateGL()));
     connect(timer_, SIGNAL(timeout()), this, SLOT(incrementHorloge()));
     timer_->start(1000);
+    QTimer *timer2 = new QTimer(this);
+    connect(timer2, SIGNAL(timeout()),tir_, SLOT(updatetime()));
+    timer2->start(100);
 
 
 }
