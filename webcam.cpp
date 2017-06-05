@@ -71,7 +71,7 @@ void Webcam::reload(){
                         // Localize the best match with minMaxLoc
                         double minVal; double maxVal; Point minLoc; Point maxLoc;
                         minMaxLoc( resultImage, &minVal, &maxVal, &minLoc, &maxLoc, Mat() );
-                        qDebug() << abs(maxLoc.x - lastX_);
+                        //qDebug() << abs(maxLoc.x - lastX_);
                         if(abs(maxLoc.x -lastX_ ) < 20){
                             if(maxLoc.y - lastY_ < 50 && maxLoc.y - lastY_ > 4){
 
@@ -91,17 +91,17 @@ void Webcam::reload(){
                                 }
                                 else{
                                     continuiteDetection_ ++;
-                                    qDebug() << continuiteDetection_;
+                                    //qDebug() << continuiteDetection_;
                                 }
 
                             }else{
-                                qDebug() << "stop";
+                                //qDebug() << "stop";
                                 continuiteDetection_ = 0;
                             }
 
                         }
                     }else{
-                        qDebug() << "echec detection";
+                        //qDebug() << "echec detection";
                         cpt_ = 0;
                         detectionEnCours_ = false;
                         lastX_ = (webcamSize_.width()-50)/2;
@@ -147,7 +147,7 @@ void Webcam::detecterMain()
     // Save the location fo the matched rect
     //qDebug() <<minVal<< " in " << abs(minLoc.x -25) << ":"<<abs(minLoc.y -25);
     if(minVal < 0.95 && abs(minLoc.x -25) < 30 && abs(minLoc.y -25) < 30){ // verif par rapport origine carré
-        qDebug() <<" detection demarré";
+        //qDebug() <<" detection demarré";
 
         if (continuiteDetection_ < 10) {
             continuiteDetection_ ++;
@@ -218,12 +218,12 @@ void Webcam::suivreMain(){
     minMaxLoc( resultImage, &minVal, &maxVal, &minLoc, &maxLoc, Mat() );
     // Save the location fo the matched rect
     if(abs(maxLoc.x-lastX_) > 150 || abs(maxLoc.y-lastY_) > 150){
-        qDebug() <<" Tracking Perdu";
+        //qDebug() <<" Tracking Perdu";
         perdu_ = true;
         return;
     }
     if(abs(maxLoc.x - lastX_) > 3 && maxLoc.y - lastY_ < 7){
-        qDebug() <<" Move X";
+        //qDebug() <<" Move X";
         angle_ += maxLoc.x - lastX_;
         if(angle_ < -90){
             angle_ = -90;
@@ -234,7 +234,7 @@ void Webcam::suivreMain(){
         emit changementOpenGl();
     }
     if(abs(maxLoc.y - lastY_) > 3 && abs(maxLoc.x - lastX_) < 7 && maxLoc.y - lastY_ < 12){
-        qDebug() <<" Move Y";
+        //qDebug() <<" Move Y";
         puissance_ += (maxLoc.y - lastY_ )*0.7;
         if(puissance_ < -5){
             puissance_ = -5;
@@ -245,7 +245,7 @@ void Webcam::suivreMain(){
         emit changementOpenGl();
     }
     if(maxLoc.y - lastY_ >= 17){
-        qDebug() << "FEU !!!!";
+        //qDebug() << "FEU !!!!";
         mainDetected_ = false;
         lastX_ = (webcamSize_.width()-50)/2;
         lastY_ = (webcamSize_.height()-50)/2;
