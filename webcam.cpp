@@ -8,9 +8,10 @@ using namespace cv;
 
 Webcam::Webcam(QWidget *parent) : QLabel(parent)
 {
-
+    cpt_ = 0;
     mainDetected_ = false;
     perdu_ = false;
+    continuiteDetection_ = 0;
     webcamSize_ = QSize(640,240);
     webCam_=new VideoCapture(0);
     rectMain_ = Rect((webcamSize_.width()-50)/2,(webcamSize_.height()-50)/2,50,50);
@@ -25,6 +26,11 @@ Webcam::Webcam(QWidget *parent) : QLabel(parent)
         timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(reload()));
         timer->start(10);
+        if (webCam_->read(image_)){
+            flip(image_,image_,1);
+            image_ = Mat(image_, Rect(0,0,640,240));
+            imageFond_ = Mat(image_, rectMain_).clone();
+        }
     }
     setMinimumSize(webcamSize_);
 
@@ -44,8 +50,66 @@ void Webcam::reload(){
             // Flip to get a mirror effect
             flip(image_,image_,1);
             image_ = Mat(image_, Rect(0,0,640,240));
-            if(!mainDetected_){
+            if(!mainDetected_ && !detectionEnCours_){
                 detecterMain();
+            }
+            else if(!mainDetected_ && detectionEnCours_){
+                    if(cpt_ < 50){
+                        if(cpt_ == 0){
+                            lastX_ = 25;
+                            lastY_ = 25;
+                        }
+                        cpt_ ++;
+                        Mat resultImage;    // to store the matchTemplate result
+                        resultImage.create( image_.cols-imageMain_.cols+1, image_.rows-imageMain_.rows+1, CV_32FC1 );
+
+                        Mat zoneDetect = Mat(image_ , Rect(((webcamSize_.width()-50)/2) -25, ((webcamSize_.height()-50)/2) -25, 100, 100)).clone(); // detection autour du carré
+
+                        matchTemplate( zoneDetect, imageMain_, resultImage, TM_CCORR_NORMED );
+                        threshold(resultImage, resultImage, 0.1, 1., CV_THRESH_TOZERO);
+
+                        // Localize the best match with minMaxLoc
+                        double minVal; double maxVal; Point minLoc; Point maxLoc;
+                        minMaxLoc( resultImage, &minVal, &maxVal, &minLoc, &maxLoc, Mat() );
+                        qDebug() << abs(maxLoc.x - lastX_);
+                        if(abs(maxLoc.x -lastX_ ) < 20){
+                            if(maxLoc.y - lastY_ < 50 && maxLoc.y - lastY_ > 4){
+
+                                if (continuiteDetection_ > 2){
+                                     detectionEnCours_ = false;
+                                     mainDetected_ = true;
+                                     matchTemplate( image_, imageMain_, resultImage, TM_CCORR_NORMED );
+                                     threshold(resultImage, resultImage, 0.1, 1., CV_THRESH_TOZERO);
+
+                                     // Localize the best match with minMaxLoc
+                                     double minVal; double maxVal; Point minLoc; Point maxLoc;
+                                     minMaxLoc( resultImage, &minVal, &maxVal, &minLoc, &maxLoc, Mat() );
+
+                                     lastX_ = maxLoc.x;
+                                     lastY_ = maxLoc.y;
+                                     return;
+                                }
+                                else{
+                                    continuiteDetection_ ++;
+                                    qDebug() << continuiteDetection_;
+                                }
+
+                            }else{
+                                qDebug() << "stop";
+                                continuiteDetection_ = 0;
+                            }
+
+                        }
+                    }else{
+                        qDebug() << "echec detection";
+                        cpt_ = 0;
+                        detectionEnCours_ = false;
+                        lastX_ = (webcamSize_.width()-50)/2;
+                        lastY_ = (webcamSize_.height()-50)/2;
+
+                    }
+
+                    rectangle(image_,rectMain_ ,Scalar( 0, 255, 0),2);
             }else{
 
                 suivreMain();
@@ -66,12 +130,39 @@ void Webcam::reload(){
     }
 }
 
+
 void Webcam::detecterMain()
 {
 
+    Mat resultImage;    // to store the matchTemplate result
+    resultImage.create( image_.cols-imageMain_.cols+1, image_.rows-imageMain_.rows+1, CV_32FC1 );
+    Mat zoneDetect = Mat(image_ , Rect(((webcamSize_.width()-50)/2) -25, ((webcamSize_.height()-50)/2) -25, 100, 100)).clone(); // detection autour du carré
 
-    rectangle(image_,rectMain_,Scalar( 0, 255, 0),2);
+    matchTemplate( zoneDetect, imageFond_, resultImage, TM_CCORR_NORMED );
+    threshold(resultImage, resultImage, 0.1, 1., CV_THRESH_TOZERO);
 
+    // Localize the best match with minMaxLoc
+    double minVal; double maxVal; Point minLoc; Point maxLoc;
+    minMaxLoc( resultImage, &minVal, &maxVal, &minLoc, &maxLoc, Mat() );
+    // Save the location fo the matched rect
+    //qDebug() <<minVal<< " in " << abs(minLoc.x -25) << ":"<<abs(minLoc.y -25);
+    if(minVal < 0.95 && abs(minLoc.x -25) < 30 && abs(minLoc.y -25) < 30){ // verif par rapport origine carré
+        qDebug() <<" detection demarré";
+
+        if (continuiteDetection_ < 10) {
+            continuiteDetection_ ++;
+        }else{
+            continuiteDetection_ = 0;
+            imageMain_ = Mat(image_, rectMain_).clone();
+            detectionEnCours_ = true;
+        }
+
+
+    }else{
+        continuiteDetection_ = 0;
+    }
+
+    rectangle(image_,rectMain_ ,Scalar( 0, 255, 0),2);
 }
 
 void Webcam::suivreMain(){
@@ -131,7 +222,7 @@ void Webcam::suivreMain(){
         perdu_ = true;
         return;
     }
-    if(abs(maxLoc.x - lastX_) > 5 && maxLoc.y - lastY_ < 15){
+    if(abs(maxLoc.x - lastX_) > 3 && maxLoc.y - lastY_ < 7){
         qDebug() <<" Move X";
         angle_ += maxLoc.x - lastX_;
         if(angle_ < -90){
@@ -142,9 +233,9 @@ void Webcam::suivreMain(){
         trebuchet_->setrot(angle_, trebuchet_->getu(), trebuchet_->gete());
         emit changementOpenGl();
     }
-    if(abs(maxLoc.y - lastY_) > 5 && maxLoc.y - lastY_ < 15){
+    if(abs(maxLoc.y - lastY_) > 3 && abs(maxLoc.x - lastX_) < 7 && maxLoc.y - lastY_ < 12){
         qDebug() <<" Move Y";
-        puissance_ += maxLoc.y - lastY_;
+        puissance_ += (maxLoc.y - lastY_ )*0.7;
         if(puissance_ < -5){
             puissance_ = -5;
         }else if( puissance_ > 20){
@@ -153,9 +244,12 @@ void Webcam::suivreMain(){
         trebuchet_->setrot(trebuchet_->getc(), puissance_, trebuchet_->gete());
         emit changementOpenGl();
     }
-    if(maxLoc.y - lastY_ >= 15){
+    if(maxLoc.y - lastY_ >= 17){
         qDebug() << "FEU !!!!";
         mainDetected_ = false;
+        lastX_ = (webcamSize_.width()-50)/2;
+        lastY_ = (webcamSize_.height()-50)/2;
+        return;
     }
     perdu_ = false;
     lastX_ = maxLoc.x;

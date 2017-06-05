@@ -34,13 +34,17 @@ private:
     cv::Mat image_;
     cv::Mat imageMain_;
     cv::Mat imageResultat_;
+    cv::Mat imageFond_;
     cv::VideoCapture * webCam_;
     QSize webcamSize_;
     bool mainDetected_;
     bool perdu_;
+    bool detectionEnCours_;
     cv::Rect rectMain_;
     int lastX_;
     int lastY_;
+    int cpt_;
+    int continuiteDetection_;
     QTimer *timer;
     double angle_;
     double puissance_;
