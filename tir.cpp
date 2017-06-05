@@ -25,11 +25,13 @@ if(trebuchet->gete()>=-20){
     if(trebuchet->getu()>=0){
         trebuchet->setrot(trebuchet->getc(),puissance-time*time, 0);
         return 0;
+        emit changementOpenGl();
     }
 
     else {
         trebuchet->setrot(trebuchet->getc(),0, -time*0.1);
         return 0;
+        emit changementOpenGl();
     }
 }
 

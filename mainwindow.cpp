@@ -36,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     timer_ = new QTimer(this);
     connect(ui->webcam, SIGNAL(changementOpenGl()), ui->openGLWidget, SLOT(updateGL()));
+    connect(tir_, SIGNAL(changementOpenGl()), ui->openGLWidget, SLOT(updateGL()));
     connect(timer_, SIGNAL(timeout()), this, SLOT(incrementHorloge()));
     timer_->start(1000);
     QTimer *timer2 = new QTimer(this);

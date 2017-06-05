@@ -17,6 +17,8 @@ public:
 
 public slots:
     void updatetime();
+signals:
+    void changementOpenGl();
 private:
     bool surtrebuchet;
     bool tirencours;
