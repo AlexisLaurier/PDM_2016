@@ -19,6 +19,8 @@ public:
 signals:
     //permet de lancer un rendu openGL lors de la modification des élements constituant la scène
     void changementOpenGl();
+public slots:
+    void updatetime();
 private:
     //booléen permetant de switcher entre l'afficher de boule et de bouleenlair, qui sont 2 éléments graphiques différent car dans des système de coordonées différent
 
