@@ -46,7 +46,8 @@ if(bouleenlair->getz()>0)
     if(cpt_==1) {time=0; cpt_++;}
     boule->setdisplayed(false);
     bouleenlair->setdisplayed(true);
-    bouleenlair->setpos(qSin(-trebuchet->getc())*puissance*time*0.001,qCos(trebuchet->getc())*puissance*time*0.001,-0.0005*time*time*0.00001+puissance*time*0.001+0.1);
+    bouleenlair->setsize(1);
+    bouleenlair->setpos(qSin(-trebuchet->getc())*puissance*time*0.01,qCos(trebuchet->getc())*puissance*time*0.01,-0.0005*time*time*0.001+puissance*time*0.01+0.2);
     return 0;
 }
 

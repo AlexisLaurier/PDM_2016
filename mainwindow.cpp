@@ -77,8 +77,8 @@ void MainWindow::resetaffichage()
 
     //initialisation de la boule en l'air
     bouleenlair.setdisplayed(false);
-    bouleenlair.setsize(0.2);
-    bouleenlair.setpos(0,0,0.1);
+    bouleenlair.setsize(0.01);
+    bouleenlair.setpos(0,0,0.8);
 
     //initialisation de la cible
     cible.setdisplayed(true);
