@@ -23,7 +23,7 @@ if (cpt_ == 0){
 
 if(trebuchet->gete()>=-20){
 
-    if(trebuchet->getu()<0){
+    if(trebuchet->getu()>-90){
         trebuchet->setrot(trebuchet->getc(),puissance-time*time*0.00001, 0);
         emit changementOpenGl();
         return 0;

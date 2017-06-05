@@ -67,6 +67,7 @@ void MainWindow::resetaffichage()
     trebuchet.setsize(0.02);
     trebuchet.setpos(0,-5,0);
     trebuchet.setrot(45,0,-20);
+     //trebuchet.setrot(45,-45,-20);
     trebuchet.setdisplayed(true);
 
     //initialisation de la boule
