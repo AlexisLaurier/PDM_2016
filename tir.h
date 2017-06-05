@@ -28,6 +28,7 @@ private:
     Element* trebuchet;
     int time;
     int cpt_;
+    int puissance;
 
 };
 

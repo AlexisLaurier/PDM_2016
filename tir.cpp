@@ -18,19 +18,20 @@ surtrebuchet=true;
 if (cpt_ == 0){
     time=0;
     cpt_++;
+    puissance =trebuchet->getu();
 }
-int puissance =trebuchet->getu();
+
 if(trebuchet->gete()>=-20){
 
-    if(trebuchet->getu()>=0){
-        trebuchet->setrot(trebuchet->getc(),puissance-time*time, 0);
+    if(trebuchet->getu()<0){
+        trebuchet->setrot(trebuchet->getc(),puissance-time*time*0.00001, 0);
         emit changementOpenGl();
         return 0;
 
     }
 
     else {
-        trebuchet->setrot(trebuchet->getc(),0, -time*0.1);
+        trebuchet->setrot(trebuchet->getc(),0, -time*0.1*0.001);
         emit changementOpenGl();
         return 0;
 
