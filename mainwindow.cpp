@@ -94,41 +94,6 @@ void MainWindow::resetaffichage()
     //position de la bouboule 0 -2.15 0.35
 }
 
-void MainWindow::on_horizontalSlider_sliderMoved(int position)
-{
-    camera.setpos(double(position)/100,camera.gety(),camera.getz());
-    ui->openGLWidget->updateGL();
-}
-
-void MainWindow::on_horizontalSlider_2_sliderMoved(int position)
-{
-    camera.setpos(camera.getx(),double(position)/100,camera.getz());
-    ui->openGLWidget->updateGL();
-}
-
-void MainWindow::on_horizontalSlider_3_sliderMoved(int position)
-{
-    camera.setpos(camera.getx(),camera.gety(),double(position)/100);
-    ui->openGLWidget->updateGL();
-}
-
-void MainWindow::on_horizontalSlider_4_sliderMoved(int position)
-{
-    camera.setrot(double(position),camera.getu(),camera.gete());
-    ui->openGLWidget->updateGL();
-}
-
-void MainWindow::on_horizontalSlider_5_sliderMoved(int position)
-{
-    camera.setrot(camera.getc(),double(position),camera.gete());
-    ui->openGLWidget->updateGL();
-}
-
-void MainWindow::on_horizontalSlider_6_sliderMoved(int position)
-{
-    camera.setrot(camera.getc(),camera.getu(),double(position));
-    ui->openGLWidget->updateGL();
-}
 
 void MainWindow::incrementHorloge(){
     horlogeS_ += 1;

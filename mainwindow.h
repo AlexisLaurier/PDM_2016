@@ -27,20 +27,6 @@ public:
 
 
 public slots:
-
-private slots:
-    void on_horizontalSlider_sliderMoved(int position);
-
-    void on_horizontalSlider_2_sliderMoved(int position);
-
-    void on_horizontalSlider_3_sliderMoved(int position);
-
-    void on_horizontalSlider_4_sliderMoved(int position);
-
-    void on_horizontalSlider_5_sliderMoved(int position);
-
-    void on_horizontalSlider_6_sliderMoved(int position);
-
     void incrementHorloge();
 
 private:
