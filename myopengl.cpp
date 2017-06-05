@@ -46,7 +46,7 @@ void MyOpenGl::initializeGL()
     textures[3] = new QOpenGLTexture(QImage(":/ressources/textures/bois.bmp").mirrored());
     textures[4] = new QOpenGLTexture(QImage(":/ressources/textures/drap.bmp").mirrored());
     textures[5] = new QOpenGLTexture(QImage(":/ressources/textures/cible.bmp").mirrored());
-    textures[6] = new QOpenGLTexture(QImage(":/ressources/textures/tse.bmp").mirrored());
+    textures[6] = new QOpenGLTexture(QImage(":/ressources/textures/telecom.bmp").mirrored());
 }
 
 void MyOpenGl::paintGL()
@@ -106,16 +106,19 @@ void MyOpenGl::paintGL()
     glTexCoord2f (0,1);
     glVertex3f(-0.7,-0.7,0.5);
     glEnd();
+        textures[6]->bind();
     glBegin(GL_QUADS);
+
     glTexCoord2f (0,0);
     glVertex3f(-0.7,1.5,0.02);
-    glTexCoord2f (1,0);
+    glTexCoord2f (2,0);
     glVertex3f(0.7,1.5,0.02);
-    glTexCoord2f (1,1);
+    glTexCoord2f (2,1);
     glVertex3f(0.7,1.5,0.5);
     glTexCoord2f (0,1);
     glVertex3f(-0.7,1.5,0.5);
     glEnd();
+    texture_filet->bind();
     glBegin(GL_QUADS);
     glTexCoord2f (0,0);
     glVertex3f(0.7,1.5,0.02);
@@ -6785,6 +6788,95 @@ void MyOpenGl::paintGL()
         glPopMatrix ();
         glDisable( GL_TEXTURE_2D );
     }
+    glPopMatrix();
+
+    //Affichage des cibles
+    glPushMatrix();
+    glScalef(cible->getsize(),cible->getsize(),cible->getsize());
+    glTranslatef(cible->getx(),cible->gety(),cible->getz());
+    glRotatef(cible->getc(), 1.0, 0.0, 0.0);
+    glRotatef(cible->getu(), 0.0, 1.0, 0.0);
+    glRotatef(cible->gete(), 0.0, 0.0, 1.0);
+    if(cible->getdisplayed())
+    {glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LEQUAL);
+        glDisable(GL_CULL_FACE);
+        glEnable ( GL_NORMALIZE );
+        glDepthMask ( GL_TRUE );
+        glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
+        glPointSize ( 1.0f );
+        glLineWidth ( 1.0f );
+        glEnable(GL_COLOR_MATERIAL);
+        glColor3f(1,1,1);
+        glEnable( GL_TEXTURE_2D );
+        glDisable( GL_CULL_FACE );
+        /* BIND TEXTURE */
+        textures[5]->bind();
+        glPushMatrix ();
+        glScalef(2,2,0.1);
+        glBegin ( GL_QUADS );
+        glNormal3f(-0.57735,-0.57735,-0.57735);
+        glVertex3f(-0.5,-0.5,-0.5);
+        glNormal3f(-0.57735,-0.57735,0.57735);
+        glVertex3f(-0.5,-0.5,0.5);
+        glNormal3f(-0.57735,0.57735,0.57735);
+        glVertex3f(-0.5,0.5,0.5);
+        glNormal3f(-0.57735,0.57735,-0.57735);
+        glVertex3f(-0.5,0.5,-0.5);
+        glNormal3f(-0.57735,-0.57735,0.57735);
+        glVertex3f(-0.5,-0.5,0.5);
+        glNormal3f(0.57735,-0.57735,0.57735);
+        glVertex3f(0.5,-0.5,0.5);
+        glNormal3f(0.57735,0.57735,0.57735);
+        glVertex3f(0.5,0.5,0.5);
+        glNormal3f(-0.57735,0.57735,0.57735);
+        glVertex3f(-0.5,0.5,0.5);
+        glNormal3f(0.57735,-0.57735,0.57735);
+        glVertex3f(0.5,-0.5,0.5);
+        glNormal3f(0.57735,-0.57735,-0.57735);
+        glVertex3f(0.5,-0.5,-0.5);
+        glNormal3f(0.57735,0.57735,-0.57735);
+        glVertex3f(0.5,0.5,-0.5);
+        glNormal3f(0.57735,0.57735,0.57735);
+        glVertex3f(0.5,0.5,0.5);
+        glNormal3f(0.57735,-0.57735,-0.57735);
+        glVertex3f(0.5,-0.5,-0.5);
+        glNormal3f(-0.57735,-0.57735,-0.57735);
+        glVertex3f(-0.5,-0.5,-0.5);
+        glNormal3f(-0.57735,0.57735,-0.57735);
+        glVertex3f(-0.5,0.5,-0.5);
+        glNormal3f(0.57735,0.57735,-0.57735);
+        glVertex3f(0.5,0.5,-0.5);
+        glNormal3f(-0.57735,0.57735,0.57735);
+        glVertex3f(-0.5,0.5,0.5);
+        glNormal3f(0.57735,0.57735,0.57735);
+        glVertex3f(0.5,0.5,0.5);
+        glNormal3f(0.57735,0.57735,-0.57735);
+        glVertex3f(0.5,0.5,-0.5);
+        glNormal3f(-0.57735,0.57735,-0.57735);
+        glVertex3f(-0.5,0.5,-0.5);
+        glNormal3f(-0.57735,-0.57735,-0.57735);
+        glVertex3f(-0.5,-0.5,-0.5);
+        glNormal3f(0.57735,-0.57735,-0.57735);
+        glVertex3f(0.5,-0.5,-0.5);
+        glNormal3f(0.57735,-0.57735,0.57735);
+        glVertex3f(0.5,-0.5,0.5);
+        glNormal3f(-0.57735,-0.57735,0.57735);
+        glVertex3f(-0.5,-0.5,0.5);
+        glEnd ();
+        glPopMatrix ();
+        glColor3f(1,1,1);
+        glBegin(GL_QUAD_STRIP);
+        glTexCoord2f (0.976563,0);
+        glVertex3f(-1,1,0.05);
+        glTexCoord2f (0,0);
+        glVertex3f(-1,-1,0.05);
+        glTexCoord2f (0.976563,0.976563);
+        glVertex3f(1,1,0.05);
+        glTexCoord2f (0,0.976563);
+        glVertex3f(1,-1,0.05);
+        glEnd();}
+
     glPopMatrix();
 
 

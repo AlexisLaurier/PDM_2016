@@ -6,6 +6,7 @@
         <file>textures/bois.bmp</file>
         <file>textures/cible.bmp</file>
         <file>textures/drap.bmp</file>
+        <file>textures/telecom.bmp</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

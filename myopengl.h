@@ -39,7 +39,7 @@ private:
     double xTrans;
     double yTrans;
     double zTrans;
-    QOpenGLTexture *textures[6];
+    QOpenGLTexture *textures[7];
     QPoint lastPos;
     QWidget *parent_;
     Element *trebuchet;

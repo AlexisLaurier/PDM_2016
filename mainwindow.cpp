@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     tir_.setcible(&cible);
     tir_.settrebuchet(&trebuchet);
 
+
     tirencours=false;
     horlogeS_ = 0;
     horlogeM_ = 0;
@@ -72,10 +73,10 @@ void MainWindow::resetaffichage()
     bouleenlair.setdisplayed(false);
 
     //initialisation de la cible
-    cible.setdisplayed(false);
-    cible.setsize(0.01);
-    cible.setpos(0,4,1);
-    cible.setrot(90,0,0);
+    cible.setdisplayed(true);
+    cible.setsize(0.15);
+    cible.setpos(0,3,1);
+    cible.setrot(60,0,0);
 
     //initialisation de la camera
     camera.setdisplayed(true);
