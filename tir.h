@@ -1,10 +1,11 @@
 #ifndef TIR_H
 #define TIR_H
 #include "element.h"
+#include <QLabel>
 
-
-class tir
+class tir : public QLabel
 {
+
 public:
     tir();
     int tirer();
@@ -12,13 +13,18 @@ public:
     void setbouleenlair(Element* elm){bouleenlair=elm;}
     void setboule(Element* elm){boule=elm;}
     void settrebuchet(Element* elm){trebuchet=elm;}
+
+public slots:
+    void increment();
 private:
     bool surtrebuchet;
-
+    bool tirencours;
     Element* cible;
     Element* bouleenlair;
     Element* boule;
     Element* trebuchet;
+    int time;
+
 };
 
 #endif // TIR_H

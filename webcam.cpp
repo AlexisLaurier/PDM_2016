@@ -241,11 +241,12 @@ void Webcam::suivreMain(){
         }else if( puissance_ > 20){
             puissance_ = 20;
         }
-        trebuchet_->setrot(trebuchet_->getc(), puissance_, trebuchet_->gete());
+        trebuchet_->setrot(trebuchet_->getc(), puissance_, -puissance_);
         emit changementOpenGl();
     }
     if(maxLoc.y - lastY_ >= 17){
         qDebug() << "FEU !!!!";
+
         mainDetected_ = false;
         lastX_ = (webcamSize_.width()-50)/2;
         lastY_ = (webcamSize_.height()-50)/2;
